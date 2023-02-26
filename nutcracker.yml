@@ -8,6 +8,7 @@ pool:
   server_failure_limit: 3
   timeout: 400
   redis: true
+  redis_auth: mypassword
   servers:
    - localhost:6379:1 server1
    - localhost:6378:1 server2
