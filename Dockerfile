@@ -13,22 +13,21 @@ RUN cd twemproxy-0.5.0 && \
 FROM alpine:3.14
 
 COPY --from=builder /usr/local/sbin/nutcracker /usr/local/sbin/nutcracker
+
 COPY nutcracker.yml /etc/nutcracker.yml
 
-RUN apk update && apk add --update stunnel && apk add bash python3  supervisor &&\
-    rm -rf /tmp/* \
+RUN apk update && apk add --update stunnel && apk add supervisor shadow\
+    && rm -rf /tmp/* \
     /var/cache/apk/*
+
+EXPOSE 6380
 
 WORKDIR /app
 
-COPY  nutcracker.yml /etc/nutcracker.yml
+COPY  server1.conf ./stunnel/server1.conf
 
-COPY  server1.conf ./server1.conf
-
-COPY  server2.conf ./server2.conf
+COPY  server2.conf ./stunnel/server2.conf
 
 COPY supervisord.conf ./supervisor/supervisord.conf
-
-EXPOSE 6380
 
 CMD ["supervisord","-c","/app/supervisor/supervisord.conf"]
