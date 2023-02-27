@@ -16,9 +16,8 @@ COPY --from=builder /usr/local/sbin/nutcracker /usr/local/sbin/nutcracker
 
 COPY nutcracker.yml /etc/nutcracker.yml
 
-RUN apk update && apk add --update stunnel && apk add supervisor shadow\
-    && rm -rf /tmp/* \
-    /var/cache/apk/*
+RUN apk update && apk add --update stunnel && apk add --no-cache supervisor\
+    && rm -rf /tmp/*
 
 EXPOSE 6380
 
