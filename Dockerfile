@@ -23,9 +23,7 @@ EXPOSE 6380
 
 WORKDIR /app
 
-COPY  server1.conf ./stunnel/server1.conf
-
-COPY  server2.conf ./stunnel/server2.conf
+COPY  client.conf ./stunnel/client.conf
 
 COPY supervisord.conf ./supervisor/supervisord.conf
 
